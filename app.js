@@ -1,48 +1,47 @@
-const friendsList = document.getElementById('listaAmigos'); 
-const nameInput = document.getElementById('amigo');
-let secretFriendsNames = [];
+const listaAmigos = document.getElementById('listaAmigos'); 
+const inputNombre = document.getElementById('amigo');
+let listaNombres = [];
 
-function addFriend(){
-    let friendsName = nameInput.value.trim(); //Trim elimina los espacios en blanco
+function agregarAmigo(){
+    let nombre = inputNombre.value.trim(); // Trim elimina los espacios en blanco
 
-    if(friendsName != ''){
-       let newElement =  createNewElement('li');
-        newElement.textContent = friendsName;
-        if (!secretFriendsNames.includes(friendsName)) {
-            friendsList.appendChild(newElement);
-            secretFriendsNames.push(friendsName);
+    if(nombre !== ''){
+       let nuevoElemento = crearElemento('li');
+        nuevoElemento.textContent = nombre;
+        if (!listaNombres.includes(nombre)) {
+            listaAmigos.appendChild(nuevoElemento);
+            listaNombres.push(nombre);
         } else {
             alert('Este nombre ya está en la lista.');
         }
-        nameInput.value = '';
+        inputNombre.value = '';
     } else alert('¡Error! Ingresa un nombre válido');
-    return;
 }
 
-function createNewElement(element){
-    let newElementHTML = document.createElement(element)
-    return newElementHTML; 
+function crearElemento(tipo){
+    let elemento = document.createElement(tipo);
+    return elemento; 
 }
 
-function deleteNewElements() {
-    while (friendsList.firstChild) {
-        friendsList.removeChild(friendsList.firstChild);
+function limpiarLista() {
+    while (listaAmigos.firstChild) {
+        listaAmigos.removeChild(listaAmigos.firstChild);
     }
-    secretFriendsNames = []; 
+    listaNombres = []; 
 }
 
-function getSecretFriend(){
+function sortearAmigo(){
 
-    if (secretFriendsNames.length === 0) {
+    if (listaNombres.length === 0) {
         alert('No hay nombres en la lista. Agrega algunos amigos primero.');
         return;
     }
 
-    let secretFriend =  secretFriendsNames[Math.floor(Math.random() * secretFriendsNames.length)];
-    deleteNewElements();
+    let amigoSecreto = listaNombres[Math.floor(Math.random() * listaNombres.length)];
+    limpiarLista();
   
-    let newH1Element = createNewElement('h1');
-    newH1Element.style.color = 'green'
-    newH1Element.textContent = `El amigo secreto es: ${secretFriend}`;
-    friendsList.appendChild(newH1Element);
+    let mensaje = crearElemento('h1');
+    mensaje.style.color = 'green';
+    mensaje.textContent = `El amigo secreto es: ${amigoSecreto}`;
+    listaAmigos.appendChild(mensaje);
 }
